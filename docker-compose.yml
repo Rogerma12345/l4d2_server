@@ -3,7 +3,7 @@ services:
   l4d2server:
     container_name: l4d2server
     # 使用本地构建或在线镜像
-    image: ghcr.io/ahdg6/l4d2server:latest
+    image: ${L4D2_IMAGE:-ghcr.io/Rogerma12345/l4d2_server:latest}
     # build:
       # context: .
       # dockerfile: Dockerfile
@@ -26,4 +26,4 @@ services:
       - ./plugins:/plugins
       - ./maps:/plugins/maps
       - ./entrypoint:/entrypoint
-    command: "-insecure -nomaster -condebug +exec server.cfg -port 37015 -tickrate 96"
+    command: "-insecure -nomaster -condebug +exec server.cfg -port 27015 -tickrate 96"

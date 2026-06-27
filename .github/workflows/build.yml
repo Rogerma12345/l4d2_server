@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: read
+  packages: write
 jobs:
   build_docker_image:
     name: Build Docker Image
@@ -23,7 +26,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/l4d2server
+          images: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
           tags: |
             type=edge,branch=main
             type=ref,event=pr
