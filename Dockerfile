@@ -97,7 +97,7 @@ RUN --mount=type=secret,id=STEAM_USERNAME \
       echo "Using anonymous login"; \
       LOGIN_ARGS="login anonymous"; \
     fi && \
-    echo "[*] 下载/更新 Windows 版服务器..." && \
+    # echo "[*] 下载/更新 Windows 版服务器..." && \
     bash "${STEAMCMD_DIR}/steamcmd.sh" \
          +force_install_dir "${SERVER_DIR}" \
          +${LOGIN_ARGS} \
