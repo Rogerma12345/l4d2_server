@@ -97,13 +97,13 @@ RUN --mount=type=secret,id=STEAM_USERNAME \
       echo "Using anonymous login"; \
       LOGIN_ARGS="login anonymous"; \
     fi && \
-#    echo "[*] 下载/更新 Windows 版服务器..." && \
-#    bash "${STEAMCMD_DIR}/steamcmd.sh" \
-#         +force_install_dir "${SERVER_DIR}" \
-#         +${LOGIN_ARGS} \
-#         +@sSteamCmdForcePlatformType windows \
-#         +app_update 222860 validate \
-#         +quit || exit 1 && \
+    echo "[*] 下载/更新 Windows 版服务器..." && \
+    bash "${STEAMCMD_DIR}/steamcmd.sh" \
+         +force_install_dir "${SERVER_DIR}" \
+         +${LOGIN_ARGS} \
+         +@sSteamCmdForcePlatformType windows \
+         +app_update 222860 validate \
+         +quit || exit 1 && \
     echo "[*] 下载/更新 Linux 版服务器..." && \
     bash "${STEAMCMD_DIR}/steamcmd.sh" \
          +force_install_dir "${SERVER_DIR}" \
