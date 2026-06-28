@@ -151,9 +151,9 @@ USER root
 ## 创建 .steam/sdk32 并软链接 steamclient.so（某些 mod/插件需要这个）
 #COPY --from=builder "${STEAMCMD_DIR}" "${STEAMCMD_DIR}"
 #RUN chown -R steam:steam "${STEAMCMD_DIR}"
-#RUN mkdir -p /home/steam/.steam/sdk32 && \
-#    ln -s "${STEAMCMD_DIR}/linux32/steamclient.so" /home/steam/.steam/sdk32/steamclient.so && \
-#    chown -R steam:steam /home/steam/.steam
+RUN mkdir -p /home/steam/.steam/sdk32 && \
+    ln -s "${STEAMCMD_DIR}/linux32/steamclient.so" /home/steam/.steam/sdk32/steamclient.so && \
+    chown -R steam:steam /home/steam/.steam
 
 # 从 builder-go 拷贝编译好的启动入口，并授予执行权限
 COPY --from=builder-go /app/entrypoint /entrypoint

@@ -1,29 +1,39 @@
 version: "3"
+
 services:
   l4d2server:
     container_name: l4d2server
-    # 使用本地构建或在线镜像
-    image: ${L4D2_IMAGE:-ghcr.io/Rogerma12345/l4d2_server:latest}
-    # build:
-      # context: .
-      # dockerfile: Dockerfile
-      # args:
-        # STEAM_USERNAME_ARG: ${STEAM_USERNAME}
-        # STEAM_PASSWORD_ARG: ${STEAM_PASSWORD}
+
+    # 使用在线镜像
+    image: ${L4D2_IMAGE:-ghcr.io/rogerma12345/l4d2_server:latest}
+
     ports:
-      - "27015:27015"
+      - "27015:27015/tcp"
       - "27015:27015/udp"
+
     restart: unless-stopped
+
+    # 开启docker控制台输入
     stdin_open: true
     tty: true
+
     volumes:
       - /etc/localtime:/etc/localtime:ro
+
+      # 插件基础目录。
       - ./data/addons/:/home/steam/l4d2server/left4dead2/addons/
-      - ./data/cfg/server.cfg:/home/steam/l4d2server/left4dead2/cfg/server.cfg:ro
+
+      # 挂载整个 cfg 目录即可，server.cfg 无需单独挂载。
       - ./data/cfg/:/home/steam/l4d2server/left4dead2/cfg/
+
       - ./data/host.txt:/home/steam/l4d2server/left4dead2/host.txt:ro
       - ./data/motd.txt:/home/steam/l4d2server/left4dead2/motd.txt:ro
+
+      # entrypoint 会扫描 /plugins 并创建插件软链接。
       - ./plugins:/plugins
       - ./maps:/plugins/maps
-      - ./entrypoint:/entrypoint
-    command: "-insecure -nomaster -condebug +exec server.cfg -port 27015 -tickrate 96"
+
+      # 不要挂载 ./entrypoint:/entrypoint。
+
+    # 进程启动参数。
+    command: "-secure -condebug -port 27015 -tickrate 96"
